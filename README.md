@@ -60,7 +60,7 @@ cd ARP-Spoofing-Defense-Mechanism-for-a-SDN-Controller
 # Use below commands
 # Make sure to initialize the controller first and then topology
 
-# Initialize the controller
+# Initialize the controller and create a file named "l2_learning_arp_mitigation" and paste the code in the file "multi_switch_working_arp_detected.py" into newly created file
 ./pox.py log.level --DEBUG proto.dhcpd --network=10.0.0.0/24 --ip=10.0.0.254 forwarding.l2_learning_arp_mitigation
 
 # Initialize the Topology setup
