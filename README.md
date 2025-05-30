@@ -10,43 +10,44 @@
 
 <h2 align="left">Workflow</h2>
 
-![image](https://github.com/user-attachments/assets/dd7cb0f4-bd44-47c2-836b-b6959a3f95cb)
+![image](https://github.com/user-attachments/assets/55607890-72ce-4871-a403-1910785ff553)
 
+- **Switch Initialization** : The process starts when a new switch is connected, triggering ARP Spoof Detection instance creation.
 
-
-- **Add Job Application** :
-
-
-- **List All Applications**:
-All job applications are displayed by default on the homepage in a clean, organized, and responsive layout.
-
-- **Filter Options**:
-Users can filter applications **by Status** (e.g., only show "Interview" or "Offer") or **by Date of Application** Or apply both filters simultaneously for refined results.
-
-- **Update Status**:
-Users can update the status of any job application at any time.
-
-- **Delete Application**:
-Users can delete any job application entry with a single click.
-
-- **Well-designed Interactive UI**:
-The frontend is modern, responsive, and user-friendly, with interactive components for seamless experience.
-
-- **Clean and Modular Code Structure**:
-Backend follows MVC Architecture
-
-- **RESTful APIs for robust and scalable development**
-
-- Proper separation of concerns and reusable components
-
-- Deployed on Front-end on **Vercel** and  Back-end on **Render**
+- **Three Concurrent Processes**: Upon instance creation, three parallel activities begin,
+  1.) Periodic Maintenance (cleans stale entries and updates global tables)
+  2.) Topology Discovery (sends discovery packets and identifies switch links)
+  3.) Packet Handling (monitors incoming packets)
   
-- Leveraged usage of popular and efficient libraries including **Express, Mongoose, dotenv, CORS, and more**
+- **Packet Type Analysis:**:
+Incoming packets are classified into three types: IP Packets, ARP Requests, and ARP Replies, each following a different processing path.
 
-- Used **MongoDB Cloud Database** for secure, scalable, and efficient data storage
+- **IP Packet Handling:**:
+  1.) Forwarded to IP Packet Forwarding
+  2.) Processed through L2 Learning Switch Logic
+  3.) Then checked for known destination to decide between Inter-Switch Routing, Direct Port Forwarding, or Controlled Flood.
 
-<h2 align="left">Manual Project Installation</h2>
-<h3>To get started with this project, clone the repository and install the necessary dependencies</h3>
+- **ARP Request Handling**:
+ 1.) Checked against the Global Host Table
+ 2.) Known destinations are Targeted Forwarded
+ 3.) Unknown destinations trigger a Controlled Flood
+  
+- **ARP Reply Verification**:
+  1.) Passed through Spoofing Detection
+  2.) If spoofing is detected, the system flags it as a Potential Spoof.
+
+- **Spoof Response Mechanism:**
+  1.) The spoofing MAC address is Blocked,
+  2.) Added to a Global Blacklist
+  3.) And Blocked on All Switches for security enforcement.
+  
+- **Dynamic Topology Awareness**:
+  By identifying switch links through discovery packets, the system maintains an up-to-date view of network topology for accurate packet routing and spoof detection.**
+
+- **Global State Updates** : Periodic updates ensure stale data is removed and global tables reflect the most recent network state, supporting efficient and secure packet routing.
+
+<h2 align="left">Manual Project Installation and Testing</h2>
+<h3>To get started with and run this project, clone the repository and install the necessary dependencies</h3>
 
 ```bash
 # Clone the repository
@@ -55,7 +56,7 @@ git clone https://github.com/Rupesh2728/ARP-Spoofing-Defense-Mechanism-for-a-SDN
 # Navigate to the project directory
 cd ARP-Spoofing-Defense-Mechanism-for-a-SDN-Controller
 
-# Setup the Mininet in Virtual box and place the "Topology.py" file inside root directory and "multi_switch_working_arp_detected.py" file inside "./mininet/mininet/forwarding"
+# Setup the Mininet in Virtual box and place the "Topology.py" file inside root directory and "multi_switch_working_arp_detected.py" file inside "./pox/pox/forwarding"
 # Use below commands
 # Make sure to initialize the controller first and then topology
 
@@ -73,18 +74,20 @@ h11 ping h12
 h12 ping h31 &
 h11 arp -s 10.0.0.7 00:00:00:00:00:01
 h11 python -c "from scapy.all import *; send(ARP(op=2, pdst='10.0.0.2', psrc='10.0.0.7', hwsrc='00:00:00:00:00:01', hwdst='00:00:00:00:00:02'"
-
 ```
 
 <h2 align="left">Demonstration Video</h2>
 
 https://github.com/user-attachments/assets/d9dddcf5-4ca4-4ae8-840e-f04723fd1295
 
+
 <h2 align="left">Contact Me</h2>
 
 - 📫 You can to reach me by mailing to **rupesh.p21@iiits.in** or **rupeshprofessional2728@gmail.com**
 
 - 👨‍💻 Project is available at [https://github.com/Rupesh2728/ARP-Spoofing-Defense-Mechanism-for-a-SDN-Controller.git]
+
+- Please also visit the report attached for better understanding
   
 - MongoDB Atlas account : **rupesh.p21@iiits.in**
 
