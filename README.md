@@ -64,7 +64,7 @@ cd ARP-Spoofing-Defense-Mechanism-for-a-SDN-Controller
 ./pox.py log.level --DEBUG proto.dhcpd --network=10.0.0.0/24 --ip=10.0.0.254 forwarding.l2_learning_arp_mitigation
 
 # Initialize the Topology setup
-sudo python Topology.py
+sudo python Topology_Code_ARP_Detected.py
 
 # Make sure to check controller and Topology are connected
 # For e.g
